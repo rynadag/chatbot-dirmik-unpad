@@ -1,0 +1,24 @@
+{
+  "name": "chatbot-dirmik",
+  "version": "1.0.0",
+  "description": "Chatbot Direktorat Akademik adalah sistem chatbot berbasis web yang dirancang untuk membantu civitas akademika memahami informasi terkait Direktorat Akademik Universitas Padjadjaran.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rynadag/chatbot-dirmik-unpad.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rynadag/chatbot-dirmik-unpad/issues"
+  },
+  "homepage": "https://github.com/rynadag/chatbot-dirmik-unpad#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "rehype-raw": "^7.0.0"
+  }
+}
