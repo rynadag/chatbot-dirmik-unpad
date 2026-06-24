@@ -120,7 +120,7 @@ const LANGUAGE_COPY: Record<ChatLanguage, {
   },
   en: {
     initialMessage:
-      "Hello! I'm an Academic Assistant from the International Office. How can I help you with campus information, scholarships, or academic procedures?",
+      "Hello! I'm the AI Assistant for the Academic Directorate of Unpad. How can I help you with academic regulations, procedures, graduation, and other academic matters?",
     languageLabel: 'Language',
     languageTitle: 'Change response language',
     disconnected: '⚠️ Connection to the server was lost. Please refresh the page.',
