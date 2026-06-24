@@ -9,6 +9,8 @@ import adminRoutes      from "./routes/admin.js";
 import chatRoutes       from "./routes/chat.js";
 import submissionRoutes from "./routes/Submission.js";
 import publicChatRoutes from "./routes/publicChat.js";
+import knowledgeRoutes  from "./routes/knowledge.js";
+import backupRoutes     from "./routes/backup.js";
 
 import { syncEmbeddingsToAtlas } from "./utils/ragHelper.js";
 
@@ -52,10 +54,12 @@ app.use("/api/admin",       adminRoutes);
 app.use("/api/chat",        chatLimiter, chatRoutes);
 app.use("/api/submission",  submissionRoutes);
 app.use("/api/public-chat", chatLimiter, publicChatRoutes);
+app.use("/api/knowledge",   knowledgeRoutes);
+app.use("/api/backup",      backupRoutes);
 
 // ── Utility endpoints ─────────────────────────────────────────
 app.get("/", (_req, res) =>
-    res.send(`🚀 Chatbot ${UNIT_NAME} Unpad berjalan!`)
+    res.send(`🚀 Chatbot ${UNIT_NAME} ${UNIV_ABBREV} berjalan!`)
 );
 
 app.get("/health", (_req, res) => {
@@ -78,10 +82,11 @@ app.use((err, _req, res, _next) => {
 
 // ── DB connection → start ─────────────────────────────────────
 mongoose
-    .connect(process.env.MONGO_URI, { ssl: true })
+    .connect(process.env.MONGO_URI, { ssl: true, dbName: process.env.MONGO_DB_NAME })
     .then(async () => {
         console.log("✅ Connected to MongoDB Atlas");
-        console.log(`📚 Direktorat: ${UNIT_NAME} Unpad`);
+        console.log(`📚 Direktorat: ${UNIT_NAME} ${UNIV_ABBREV}`);
+
         // Non-blocking embedding sync — server starts immediately
         syncEmbeddingsToAtlas().catch(err =>
             console.error("⚠️ Background embedding sync gagal:", err)

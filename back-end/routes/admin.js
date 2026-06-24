@@ -180,8 +180,8 @@ router.post("/compile", async (req, res) => {
     }
 });
 
-// ── [GET] /api/admin/chats — Daftar semua sesi chat ───────────
-router.get("/chats", async (req, res) => {
+// ── [GET] /api/admin/chats / /chats/all — Daftar semua sesi chat ───
+router.get(["/chats", "/chats/all"], async (req, res) => {
     try {
         const sessions = await ChatSession.find({})
             .select("sessionId status createdAt updatedAt")
@@ -254,6 +254,88 @@ router.delete("/chats/:id", async (req, res) => {
     } catch (error) {
         console.error("❌ [Admin DELETE /chats/:id] Error:", error);
         res.status(500).json({ error: "Gagal menghapus percakapan." });
+    }
+});
+
+// ── [POST] /api/admin/logout ──────────────────────────────────
+router.post("/logout", async (req, res) => {
+    res.clearCookie("token");
+    res.json({ message: "✅ Logout berhasil!" });
+});
+
+// ── [PUT] /api/admin/change-password — Ganti password sendiri ─
+router.put("/change-password", async (req, res) => {
+    try {
+        const { currentPassword, newPassword } = req.body;
+        if (!currentPassword || !newPassword) {
+            return res.status(400).json({ message: "Password lama dan baru wajib diisi." });
+        }
+        if (newPassword.length < 6) {
+            return res.status(400).json({ message: "Password baru minimal 6 karakter." });
+        }
+
+        const User = (await import("../models/User.js")).default;
+        const bcrypt = await import("bcrypt");
+
+        const user = await User.findById(req.user._id);
+        if (!user) return res.status(404).json({ message: "User tidak ditemukan." });
+
+        const isMatch = await user.comparePassword(currentPassword);
+        if (!isMatch) return res.status(401).json({ message: "Password lama tidak sesuai." });
+
+        const salt = await bcrypt.default.genSalt(10);
+        user.password = await bcrypt.default.hash(newPassword, salt);
+        await user.save();
+
+        res.json({ message: "Password berhasil diubah." });
+    } catch (error) {
+        console.error("❌ [change-password] Error:", error);
+        res.status(500).json({ message: "Gagal mengubah password." });
+    }
+});
+
+// ── [GET] /api/admin/list — Daftar semua user/admin ───────────
+router.get("/list", async (req, res) => {
+    try {
+        const User = (await import("../models/User.js")).default;
+        const users = await User.find({}).select("-password").sort({ createdAt: -1 }).lean();
+        res.json({ data: users });
+    } catch (error) {
+        console.error("❌ [admin list] Error:", error);
+        res.status(500).json({ error: "Gagal mengambil daftar admin." });
+    }
+});
+
+// ── [PUT] /api/admin/:id/password — Reset password admin lain ─
+router.put("/:id/password", async (req, res) => {
+    try {
+        const { password } = req.body;
+        if (!password || password.length < 6) {
+            return res.status(400).json({ error: "Password minimal 6 karakter." });
+        }
+        const User = (await import("../models/User.js")).default;
+        const user = await User.findById(req.params.id);
+        if (!user) return res.status(404).json({ error: "User tidak ditemukan." });
+
+        user.password = password; // Pre-save hook akan hash
+        await user.save();
+        res.json({ message: "Password berhasil diubah." });
+    } catch (error) {
+        console.error("❌ [admin /:id/password] Error:", error);
+        res.status(500).json({ error: "Gagal mengubah password." });
+    }
+});
+
+// ── [DELETE] /api/admin/:id — Hapus admin (non-superadmin) ────
+router.delete("/:id", async (req, res) => {
+    try {
+        const User = (await import("../models/User.js")).default;
+        const user = await User.findByIdAndDelete(req.params.id);
+        if (!user) return res.status(404).json({ error: "User tidak ditemukan." });
+        res.json({ message: "Admin berhasil dihapus." });
+    } catch (error) {
+        console.error("❌ [admin /:id delete] Error:", error);
+        res.status(500).json({ error: "Gagal menghapus admin." });
     }
 });
 
