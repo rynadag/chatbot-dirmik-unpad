@@ -197,7 +197,7 @@ def smart_clean_text(raw_text: str) -> str:
 # PROMPTS (IMPROVED FOR ACCURACY)
 # =======================================================================
 QA_TEMPLATE = """\
-You are the **International Student AI Assistant for Universitas Padjadjaran (UNPAD)**.
+You are the **AI Assistant for Direktorat Akademik Universitas Padjadjaran (UNPAD)**.
 Persona: professional, warm, concise, and academically accurate.
 
 STRICT RULES:
@@ -227,9 +227,9 @@ Provide a helpful, accurate answer based ONLY on the document context above:
 qa_prompt = ChatPromptTemplate.from_template(QA_TEMPLATE)
 
 GREETING_TEMPLATE = """\
-You are the KUI UNPAD International Office assistant.
+You are the AI Assistant for Direktorat Akademik UNPAD.
 {language_instruction}
-Mention you can help with campus info, scholarships, academic procedures, and international student matters.
+Mention you can help with academic regulations, graduation, academic procedures, and other academic directorate matters.
 Keep it under 3 sentences.
 
 User greeting: {question}
@@ -416,11 +416,11 @@ _LANG_INSTRUCTION = {
 _NO_ANSWER_TEXT = {
     "id": (
         "Saya belum memiliki informasi spesifik itu di knowledge base. "
-        "Silakan hubungi kantor KUI UNPAD atau minta admin menambahkan informasi yang relevan."
+        "Silakan hubungi admin Direktorat Akademik Unpad atau minta admin menambahkan informasi yang relevan."
     ),
     "en": (
         "I don't have that specific information in the knowledge base. "
-        "Please contact the KUI UNPAD office or ask an administrator to add the relevant information."
+        "Please contact the admin of Direktorat Akademik Unpad or ask an administrator to add the relevant information."
     ),
 }
 
