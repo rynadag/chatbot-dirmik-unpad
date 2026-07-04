@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   Send,
   Loader2,
@@ -12,7 +13,7 @@ import {
   Moon,
   Languages,
   FileText,
-  User,
+  LogIn,
 } from 'lucide-react';
 
 // --- LIBRARY MARKDOWN & HTML PARSER ---
@@ -253,7 +254,7 @@ export default function Chatbot() {
       const headers: Record<string, string> = { 'Content-Type': 'application/json' };
       if (sessionIdRef.current) headers['x-session-id'] = sessionIdRef.current;
 
-      const res = await fetch('http://localhost:3000/api/public-chat/stream', {
+      const res = await fetch('http://localhost:5000/api/public-chat/stream', {
         method: 'POST',
         headers,
         body: JSON.stringify({ question: userMsg }),
@@ -335,7 +336,7 @@ export default function Chatbot() {
     setMessages(prev => [...prev, { sender: 'user', text: userMsg }]);
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:3000/api/admin/data', {});
+      const res = await fetch('http://localhost:5000/api/admin/data', {});
       if (!res.ok) throw new Error();
       const items = await res.json();
       const tags: string[] = items.map((i: { tag: string }) => i.tag);
@@ -454,7 +455,7 @@ export default function Chatbot() {
                 style={{ border: '1px solid var(--border)' }}
               >
                 <Image
-                  src='/Logo.jpg'
+                  src='/Logo1.jpg'
                   alt='Bot Logo'
                   fill
                   sizes='44px'
@@ -525,6 +526,13 @@ export default function Chatbot() {
                 <Moon className="w-5 h-5" style={{ color: 'var(--foreground)' }} />
               )}
             </button>
+            <Link
+              href="/login"
+              className="p-2.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-all border border-transparent hover:border-border flex items-center justify-center"
+              title="Login Admin"
+            >
+              <LogIn className="w-5 h-5" style={{ color: 'var(--foreground)' }} />
+            </Link>
           </div>
         </header>
 
@@ -536,20 +544,16 @@ export default function Chatbot() {
               className={`flex gap-4 group ${msg.sender === 'user' ? 'flex-row-reverse' : ''}`}
             >
               <div
-                className='shrink-0 w-10 h-10 rounded-full flex items-center justify-center shadow-md border overflow-hidden relative bg-white text-gray-500'
+                className='shrink-0 w-10 h-10 rounded-full flex items-center justify-center shadow-md border overflow-hidden relative bg-white'
                 style={{ borderColor: 'var(--border)' }}
               >
-                {msg.sender === 'user' ? (
-                  <User className='w-6 h-6' />
-                ) : (
-                  <Image
-                    src='/Logo.jpg'
-                    alt='Bot Logo'
-                    fill
-                    sizes='40px'
-                    className='object-contain p-0.5'
-                  />
-                )}
+                <Image
+                  src={msg.sender === 'user' ? '/Logo.jpg' : '/Logo1.jpg'}
+                  alt={msg.sender}
+                  fill
+                  sizes='40px'
+                  className='object-contain p-0.5'
+                />
               </div>
               <div
                 className={`flex flex-col max-w-[85%] sm:max-w-[75%] ${
@@ -678,7 +682,7 @@ export default function Chatbot() {
             <div className='flex gap-4 animate-pulse'>
               <div className='w-10 h-10 rounded-full border flex items-center justify-center bg-white overflow-hidden relative' style={{ borderColor: 'var(--border)' }}>
                  <Image 
-                    src="/Logo.jpg" 
+                    src="/Logo1.jpg" 
                     alt="Bot Loading" 
                     fill
                     sizes="40px"

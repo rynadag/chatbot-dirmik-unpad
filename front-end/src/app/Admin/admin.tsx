@@ -371,7 +371,7 @@ const ChatHistoryView = () => {
   const fetchChatList = async () => {
     try {
       setListLoading(true);
-      const res = await fetch('http://localhost:3000/api/admin/chats/all', {
+      const res = await fetch('http://localhost:5000/api/admin/chats/all', {
         credentials: 'include',
       });
       if (res.status === 401) {
@@ -403,7 +403,7 @@ const ChatHistoryView = () => {
       setSelectedConversation(null);
 
       const res = await fetch(
-        `http://localhost:3000/api/admin/chats/history?chatId=${chatId}`,
+        `http://localhost:5000/api/admin/chats/history?chatId=${chatId}`,
         { credentials: 'include' }
       );
 
@@ -451,7 +451,7 @@ const ChatHistoryView = () => {
   const executeDeleteChat = async (id: string) => {
     try {
       setConfirmLoading(true);
-      const res = await fetch(`http://localhost:3000/api/admin/chats/${id}`, {
+      const res = await fetch(`http://localhost:5000/api/admin/chats/${id}`, {
         method: 'DELETE',
         credentials: 'include',
       });
@@ -493,7 +493,7 @@ const ChatHistoryView = () => {
     try {
       setConfirmLoading(true);
       const res = await fetch(
-        'http://localhost:3000/api/admin/chats/delete-old',
+        'http://localhost:5000/api/admin/chats/delete-old',
         { method: 'DELETE', credentials: 'include' }
       );
       if (!res.ok) throw new Error('Gagal menghapus chat lama.');
@@ -925,7 +925,7 @@ export default function AdminDashboard() {
   const handleLogout = async () => {
     setIsLoggingOut(true);
     try {
-      const res = await fetch('http://localhost:3000/api/admin/logout', {
+      const res = await fetch('http://localhost:5000/api/admin/logout', {
         method: 'POST',
         credentials: 'include',
       });

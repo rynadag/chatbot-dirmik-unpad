@@ -483,7 +483,7 @@ export default function KnowledgeView({ onBack }: KnowledgeViewProps) {
     try {
       if (!silent) setIsLoading((prev) => ({ ...prev, list: true }));
 
-      const res = await fetch('http://localhost:3000/api/knowledge', {
+      const res = await fetch('http://localhost:5000/api/knowledge', {
         credentials: 'include',
       });
       if (res.status === 401) {
@@ -550,7 +550,7 @@ export default function KnowledgeView({ onBack }: KnowledgeViewProps) {
 
     setIsLoading((prev) => ({ ...prev, rag: true }));
     try {
-      const backupRes = await fetch('http://localhost:3000/api/backup/create', {
+      const backupRes = await fetch('http://localhost:5000/api/backup/create', {
         method: 'POST',
         credentials: 'include', // Penting untuk kirim session cookie (username admin)
       });
@@ -590,8 +590,8 @@ export default function KnowledgeView({ onBack }: KnowledgeViewProps) {
       setIsLoading((prev) => ({ ...prev, save: true }));
       const method = isNew ? 'POST' : 'PUT';
       const url = isNew
-        ? 'http://localhost:3000/api/knowledge'
-        : `http://localhost:3000/api/knowledge/${selectedItem?._id}`;
+        ? 'http://localhost:5000/api/knowledge'
+        : `http://localhost:5000/api/knowledge/${selectedItem?._id}`;
 
       try {
         const res = await fetch(url, {
@@ -629,7 +629,7 @@ export default function KnowledgeView({ onBack }: KnowledgeViewProps) {
     async (id: string) => {
       try {
         const res = await fetch(
-          `http://localhost:3000/api/knowledge/${id}/status`,
+          `http://localhost:5000/api/knowledge/${id}/status`,
           {
             method: 'PUT',
             credentials: 'include',
@@ -655,7 +655,7 @@ export default function KnowledgeView({ onBack }: KnowledgeViewProps) {
   const executeDeleteItem = useCallback(
     async (id: string) => {
       try {
-        const res = await fetch(`http://localhost:3000/api/knowledge/${id}`, {
+        const res = await fetch(`http://localhost:5000/api/knowledge/${id}`, {
           method: 'DELETE',
           credentials: 'include',
         });
@@ -936,7 +936,7 @@ const KnowledgeDetailPanel = React.memo(function KnowledgeDetailPanel({
   useEffect(() => {
     if (isAdding || isEditing) {
       setIsLoadingCategories(true);
-      fetch('http://localhost:3000/api/knowledge/categories')
+      fetch('http://localhost:5000/api/knowledge/categories')
         .then((res) => res.json())
         .then((json) => {
           if (!json.error && json.data) {

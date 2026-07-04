@@ -39,7 +39,7 @@ export default function SettingsView() {
 
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:3000/api/admin/change-password', {
+      const res = await fetch('http://localhost:5000/api/admin/change-password', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

@@ -49,7 +49,7 @@ export default function RagDetailView({ onBack, onSuccess }: RagDetailViewProps)
   // 1. FETCH KATEGORI
   useEffect(() => {
     setIsLoadingCategories(true);
-    fetch('http://localhost:3000/api/knowledge/categories')
+    fetch('http://localhost:5000/api/knowledge/categories')
       .then(res => res.json())
       .then(json => {
         if (!json.error && json.data) {
@@ -126,7 +126,7 @@ export default function RagDetailView({ onBack, onSuccess }: RagDetailViewProps)
       setUploadStep('Membuat Backup Data Server...');
       
       try {
-        const backupRes = await fetch('http://localhost:3000/api/backup/create', {
+        const backupRes = await fetch('http://localhost:5000/api/backup/create', {
           method: 'POST',
           credentials: 'include', // Penting: Kirim cookie session admin
         });

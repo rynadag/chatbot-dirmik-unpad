@@ -16,7 +16,7 @@ import { toast } from 'sonner';
 
 // --- KONFIGURASI API ---
 // Sebaiknya gunakan process.env.NEXT_PUBLIC_API_URL di production
-const API_BASE_URL = 'http://localhost:3000'; 
+const API_BASE_URL = 'http://localhost:5000'; 
 
 interface BackupItem {
   _id: string;

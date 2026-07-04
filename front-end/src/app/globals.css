@@ -62,8 +62,8 @@ body {
 
   /* SETUP BACKGROUND RESPONSIVE (Light Mode) */
   background-image: linear-gradient(
-      rgba(255, 255, 255, 0.3),
-      rgba(255, 255, 255, 0.3)
+      rgba(255, 255, 255, 0.45),
+      rgba(255, 255, 255, 0.45)
     ),
     url('/background-light-new.png');
 
@@ -91,7 +91,6 @@ body {
   box-shadow: var(--glass-shadow);
   border-radius: 20px; /* Radius lebih bulat untuk kesan modern */
 }
-
 /* ---------------------------
    DARK MODE
    --------------------------- */
@@ -153,7 +152,20 @@ a {
   scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
 }
 
+/* Custom small helpers for scrollbar appearance (non-critical) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.25) transparent;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ring) transparent;
+}
+
 * {
   -ms-overflow-x: hidden; /*IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+/* Keep minimal resets used earlier removed to avoid conflicts */
