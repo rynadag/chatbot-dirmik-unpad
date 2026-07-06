@@ -25,7 +25,7 @@ function getUnitConfig() {
     if (_unitConfig) return _unitConfig;
     _unitConfig = {
         unitName:   process.env.UNIT_NAME          || "Direktorat Akademik",
-        unitAbbrev: process.env.UNIT_ABBREVIATION  || "Dirmik",
+        unitAbbrev: process.env.UNIT_ABBREVIATION  || "Direktorat Akademik",
         univName:   process.env.UNIV_NAME          || "Universitas Padjadjaran",
         univAbbrev: process.env.UNIV_ABBREVIATION  || "Unpad",
         helpdesk:   process.env.HELPDESK_CONTACT   || "admin Direktorat Akademik Unpad",

@@ -287,7 +287,7 @@ export default function ManageAdminView({ onBack }: ManageAdminViewProps) {
                   type="email" 
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder='Contoh: admin@dirmik.unpad.ac.id'
+                  placeholder='Contoh: admin@akademik.unpad.ac.id'
                   required
                 />
               </div>

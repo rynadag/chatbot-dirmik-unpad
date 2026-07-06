@@ -159,7 +159,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className='block w-full pl-11 pr-4 py-3.5 rounded-xl text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-transparent transition-all shadow-inner bg-white/60 dark:bg-white/10 border border-slate-200 dark:border-white/10 focus:bg-white/80 dark:focus:bg-white/20'
-                placeholder='admin@dirmik.unpad.ac.id'
+                placeholder='admin@akademik.unpad.ac.id'
               />
             </div>
           </div>
