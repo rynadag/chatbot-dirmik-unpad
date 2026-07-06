@@ -62,7 +62,7 @@ app.get("/", (_req, res) =>
     res.send(`🚀 Chatbot ${UNIT_NAME} ${UNIV_ABBREV} berjalan!`)
 );
 
-app.get("/health", (_req, res) => {
+app.get(["/health", "/api/health"], (_req, res) => {
     const states = ["disconnected", "connected", "connecting", "disconnecting"];
     res.json({
         status:      "ok",
