@@ -43,7 +43,7 @@ def _env_int(name: str, default: int, minimum: int = 1) -> int:
 GROQ_API_KEY     = os.getenv("GROQ_API_KEY")
 MONGO_URI        = os.getenv("MONGO_URI")
 MONGO_DB_NAME    = os.getenv("MONGO_DB_NAME")
-MONGO_COLLECTION = "knowledgesources"
+MONGO_COLLECTION = "knowledgebase"
 
 # Load unit identity from environment variables
 _UNIT_NAME   = os.getenv("PRODI_NAME") or os.getenv("UNIT_NAME", "Program Studi")
